@@ -69,11 +69,18 @@ export default class App extends Component<Props> {
 
             //var myFirebaseRef2 = firebaseApp2.database().ref();
 
+            if (text.length) {
+              this.myFirebaseRef.set({
+                key: text
+              });
+            }
+            else {
+              this.myFirebaseRef.set({
+                key: null
+              });
+            }
 
-            this.myFirebaseRef.set({
-              key: text
 
-            });
 
             // UPDATING THE DATABASE ***************************************************************
 
@@ -92,9 +99,8 @@ export default class App extends Component<Props> {
         <Text style={styles.instructions}>
           {this.state.text}
         </Text>
-        <Text style={styles.instructions}>
-          "Test"
-        </Text>
+        
+
       </View>
     );
   }
