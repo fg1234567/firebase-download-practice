@@ -39,14 +39,14 @@ export default class App extends Component<Props> {
 
     this.myFirebaseRef = this.firebaseApp.database().ref();
 
-
+    /*
     this.myFirebaseRef.set({
       title: '_initial',
       author: 'Furkan',
       key: "value"
 
     });
-
+    */
   }
 
 
@@ -57,10 +57,10 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         
         <TextInput
-          style={{height: 40}}
-          placeholder="Type here to translate!"
+          style={{height: 40, width:170}}
+          placeholder="Enter a value to database!"
           onChangeText={(text) => {
-            this.setState({text, title: text});
+            this.setState({text});
 
             // UPDATING THE DATABASE ***************************************************************
 
@@ -71,9 +71,7 @@ export default class App extends Component<Props> {
 
 
             this.myFirebaseRef.set({
-              title: text,
-              author: 'Furkan',
-              key: "value"
+              key: text
 
             });
 
