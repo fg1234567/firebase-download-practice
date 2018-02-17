@@ -23,7 +23,7 @@ export default class App extends Component<Props> {
   constructor(props){
     super(props);
 
-    this.state = {text: '', title: ''};
+    this.state = {text: '', title: '', opacityValue: 1};
     //var myFirebaseRef = Firebase('https://user-records.firebaseio.com');
 
     this.config = {
@@ -47,6 +47,30 @@ export default class App extends Component<Props> {
 
     });
     */
+
+    this.opVal = 1;
+
+    this.updateOpacity = () => {
+
+      if (this.opVal <= 0.2){
+        this.opVal = 1
+      }
+      this.opVal -= 0.05;
+      this.setState({opacityValue: this.opVal});
+
+      if (this.state.text.length) {
+        this.myFirebaseRef.set({key: this.state.text, opacity: this.opVal});
+      }
+      else{
+        this.myFirebaseRef.set({opacity: this.opVal});
+
+      }
+    
+
+    };
+
+
+
   }
 
 
@@ -71,12 +95,14 @@ export default class App extends Component<Props> {
 
             if (text.length) {
               this.myFirebaseRef.set({
-                key: text
+                key: text,
+                opacity: this.opVal
               });
             }
             else {
               this.myFirebaseRef.set({
-                key: null
+                key: null,
+                opacity: this.opVal
               });
             }
 
@@ -93,13 +119,15 @@ export default class App extends Component<Props> {
         />
 
 
-        <Text style={styles.welcome}>
-          Value to be added to the database: 
+        <Text style={styles.welcome,{opacity:this.state.opacityValue}} onPress = {this.updateOpacity}>
+          Value to be added to the database:
         </Text>
+
+        <Text>Opacity: {(this.opVal).toFixed(2)} </Text>
         <Text style={styles.instructions}>
           {this.state.text}
         </Text>
-        
+
 
       </View>
     );
@@ -117,10 +145,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    
+
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
   },
+
 });
