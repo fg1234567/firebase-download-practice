@@ -39,6 +39,17 @@ export default class App extends Component<Props> {
 
     this.myFirebaseRef = this.firebaseApp.database().ref();
 
+    this.myStorageRef = this.firebaseApp.storage().ref('images/jarvis.png');
+
+    this.name = this.myStorageRef.name;
+
+    //this.imagesRef = this.myStorageRef.child('images');
+
+    //this.path = myFirebaseRef.fullPath;
+
+    //this.childRef = myStorageRef.child('test.txt');
+
+
     /*
     this.myFirebaseRef.set({
       title: '_initial',
@@ -57,6 +68,15 @@ export default class App extends Component<Props> {
       }
       this.opVal -= 0.05;
       this.setState({opacityValue: this.opVal});
+
+      let message = 'This is my message.';
+
+      //let childRef = this.myStorageRef.child('test.txt');
+
+      // childRef.putString(message).then(function(snapshot) {
+      //   console.log('Uploaded a raw string!');
+      // });
+
 
       if (this.state.text.length) {
         this.myFirebaseRef.set({key: this.state.text, opacity: this.opVal});
@@ -120,12 +140,15 @@ export default class App extends Component<Props> {
 
 
         <Text style={styles.welcome,{opacity:this.state.opacityValue}} onPress = {this.updateOpacity}>
-          Value to be added to the database:
+            Value to be added to the database:
         </Text>
 
         <Text>Opacity: {(this.opVal).toFixed(2)} </Text>
         <Text style={styles.instructions}>
           {this.state.text}
+        </Text>
+        <Text>
+            Reference to a storage location: {this.name}
         </Text>
 
 
